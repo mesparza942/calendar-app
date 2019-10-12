@@ -39,7 +39,7 @@ const App = () => {
       title: `${title} - ${city}`,
       start,
       end,
-      children: () => <div style={{ backgroundColor: color }}>color</div>
+      color
     };
     updateReminders([...reminders, newReminder]);
     setOpen(false);
