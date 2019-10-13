@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Modal,
@@ -6,7 +6,6 @@ import {
   Fade,
   Divider,
   Input,
-  InputLabel,
   Button
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
@@ -15,8 +14,10 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import { GithubPicker } from "react-color";
+import isEmpty from "lodash/isEmpty";
 import ColorLensIcon from "@material-ui/icons/ColorLens";
-import TimePicker from "./TimePicker";
+import TimePicker from "./timePicker";
+import CityInput from "./cityInput";
 
 const useStyles = makeStyles(theme => ({
   modal: {
@@ -33,19 +34,78 @@ const useStyles = makeStyles(theme => ({
   field: {
     width: "100%",
     padding: theme.spacing(1)
+  },
+  disabledInfo: {
+    fontSize: "10px",
+    color: "#FF0000",
+    maxWidth: "250px"
   }
 }));
 
-const ReminderModal = ({ open, setOpen, updateReminders }) => {
+const ReminderModal = ({
+  open,
+  setOpen,
+  updateReminders,
+  isEditing,
+  setEdit,
+  editingReminder,
+  setEditingReminder,
+  dateClicked
+}) => {
   const classes = useStyles();
   const [startDate, setStartDate] = useState(new Date(2019, 9, 11));
   const [endDate, setEndDate] = useState(new Date(2019, 9, 11));
   const [reminderName, setReminderName] = useState("");
   const [reminderCity, setReminderCity] = useState("");
   const [startTime, setStartTime] = useState(12);
-  const [endTime, setEndTime] = useState(1);
+  const [endTime, setEndTime] = useState(13);
   const [colorPicker, openColorPicker] = useState(false);
   const [color, setColor] = useState("#000");
+  const [weather, setWeather] = useState("");
+
+  const clearAll = () => {
+    setStartDate(new Date(2019, 9, 11));
+    setEndDate(new Date(2019, 9, 11));
+    setReminderName("");
+    setReminderCity("");
+    setStartTime(12);
+    setEndTime(13);
+    setColor("#000");
+  };
+
+  const isButtonDisabled = () =>
+    !reminderName || !reminderCity || startDate < endDate || color === "#000";
+
+  useEffect(() => {
+    if (dateClicked) {
+      setStartDate(dateClicked);
+      setEndDate(dateClicked);
+    }
+  }, [dateClicked]);
+
+  useEffect(() => {
+    if (!isEmpty(editingReminder)) {
+      setStartDate(
+        new Date(
+          editingReminder.startYear,
+          editingReminder.startMonth,
+          editingReminder.startDay
+        )
+      );
+      setEndDate(
+        new Date(
+          editingReminder.endYear,
+          editingReminder.endMonth,
+          editingReminder.endDay
+        )
+      );
+      setReminderName(editingReminder.reminderName);
+      setReminderCity(editingReminder.reminderCity);
+      setStartTime(editingReminder.startTime);
+      setEndTime(editingReminder.endTime);
+      setColor(editingReminder.color);
+    }
+  }, [editingReminder]);
 
   return (
     <div>
@@ -54,7 +114,10 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
         aria-describedby="transition-modal-description"
         className={classes.modal}
         open={open}
-        onClose={() => setOpen(false)}
+        onClose={() => {
+          setOpen(false);
+          clearAll();
+        }}
         closeAfterTransition
         BackdropComponent={Backdrop}
         BackdropProps={{
@@ -66,12 +129,6 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
             <h2 id="transition-modal-title" style={{ textAlign: "center" }}>
               Reminder Info
             </h2>
-            <p
-              id="transition-modal-description"
-              style={{ textAlign: "center" }}
-            >
-              Fill the information below about the reminder
-            </p>
             <Divider />
             <div className={classes.field} style={{ display: "flex" }}>
               <Input
@@ -102,9 +159,15 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
             <div className={classes.field}>
               <Input
                 id="city"
-                placeholder="Where ? (City)"
+                placeholder="Where ? Select your city: "
                 value={reminderCity}
-                onChange={e => setReminderCity(e.target.value)}
+                onChange={() => true}
+                disabled
+              />
+              <CityInput
+                city={reminderCity}
+                setCity={setReminderCity}
+                setWeather={setWeather}
               />
             </div>
             <div className={classes.field}>
@@ -133,7 +196,8 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
                     id="date-picker-inline-end"
                     label="End Date"
                     value={endDate}
-                    onChange={newEndDate => setEndDate(newEndDate)}
+                    minDate={startDate}
+                    onChange={newDate => setEndDate(newDate)}
                     KeyboardButtonProps={{
                       "aria-label": "change date"
                     }}
@@ -161,10 +225,10 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
             </div>
             <div className={classes.field}>
               <Button
-                disabled={!reminderName}
+                disabled={isButtonDisabled()}
                 variant="contained"
                 color="primary"
-                onClick={() =>
+                onClick={() => {
                   updateReminders({
                     title: reminderName,
                     city: reminderCity,
@@ -177,12 +241,25 @@ const ReminderModal = ({ open, setOpen, updateReminders }) => {
                     endDay: endDate.getDate(),
                     endTime: endTime,
                     color
-                  })
-                }
+                  });
+                  clearAll();
+                  if (isEditing) {
+                    setEdit(false);
+                    setEditingReminder({});
+                  }
+                }}
               >
-                Add Reminder
+                {!isEditing ? "Add" : "Edit"} Reminder
               </Button>
             </div>
+            {isButtonDisabled() && (
+              <div className={classes.field}>
+                <p className={classes.disabledInfo}>
+                  Please make sure all fields have valid values and don't forget
+                  to choose a color for your reminder
+                </p>
+              </div>
+            )}
           </div>
         </Fade>
       </Modal>
