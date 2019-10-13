@@ -13,7 +13,7 @@ const StyledHeader = styled.div`
 const Header = () => (
   <StyledHeader>
     <h1>Calendar App</h1>
-    <h2>Jobsity Coding Challenge</h2>
+    <h2>Coding Challenge</h2>
   </StyledHeader>
 );
 
