@@ -43,6 +43,11 @@ entered day and time. Also, include a city. - DONE
 - TEST 1: Verify the Reminder is been created succesfully
 - TEST 2: Verify the Reminder have less than 30 chars
 
+## SCRIPTS
+
+- `yarn start` to start the application
+- `yarn test` to run unit tests
+
 ### Tools and Libraries used
 
 - "@date-io/date-fns": "^1.3.11", (used for calendar date handler)
