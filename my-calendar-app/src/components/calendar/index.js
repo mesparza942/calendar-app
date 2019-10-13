@@ -44,20 +44,19 @@ const Calendar = ({
   events,
   handleEditReminder,
   openModal,
-  setDateClicked,
-  view
+  setDateClicked
 }) => {
   const [currentDate, setCurrentDate] = useState(
     new Date(2019, 9, 11, 0, 0, 0)
   );
   return (
     <StyledCalendar events={events}>
-      <div style={{ width: 800, height: 500 }}>
+      <h4>October 2019</h4>
+      <div style={{ width: 900, height: 500 }}>
         <BigCalendar
           selectable
           events={events}
-          step={60}
-          view={view}
+          toolbar={false}
           views={["month"]}
           date={currentDate}
           onSelectEvent={handleEditReminder}

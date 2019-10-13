@@ -17,7 +17,6 @@ const App = () => {
   const [reminders, updateReminders] = useState([]);
   const [editingReminder, setEditingReminder] = useState({});
   const [isEditing, setEditMode] = useState(false);
-  const [view, onView] = useState("month");
   const [dateClicked, setDateClicked] = useState();
 
   const handleOpen = () => setOpen(!open);
@@ -98,7 +97,6 @@ const App = () => {
       <StyledContent>
         <Calendar
           events={reminders}
-          view={view}
           handleEditReminder={handleEditReminder}
           openModal={setOpen}
           setDateClicked={setDateClicked}

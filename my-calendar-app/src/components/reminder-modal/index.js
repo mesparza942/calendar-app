@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Modal,
@@ -39,6 +39,12 @@ const useStyles = makeStyles(theme => ({
     fontSize: "10px",
     color: "#FF0000",
     maxWidth: "250px"
+  },
+  weather: {
+    fontSize: "12px",
+    color: "#3f51b5",
+    maxWidth: "250px",
+    textShadow: "#ccc 1px 1px 3px"
   }
 }));
 
@@ -252,14 +258,16 @@ const ReminderModal = ({
                 {!isEditing ? "Add" : "Edit"} Reminder
               </Button>
             </div>
-            {isButtonDisabled() && (
-              <div className={classes.field}>
+            <div className={classes.field}>
+              {isButtonDisabled() ? (
                 <p className={classes.disabledInfo}>
                   Please make sure all fields have valid values and don't forget
                   to choose a color for your reminder
                 </p>
-              </div>
-            )}
+              ) : (
+                <p className={classes.weather}>{weather}</p>
+              )}
+            </div>
           </div>
         </Fade>
       </Modal>
