@@ -36,6 +36,30 @@ entered day and time. Also, include a city. - DONE
 
 ## ADD REMINDER
 
-- Click on + button of click directly on any day on the calendar, a modal should open with a form of reminder info
+- Click on + button on your right OR click directly on any day on the calendar, a modal should open with a form of reminder info.
+- Reminder name should not allow more than 30 chars
+- Click on the Icon next to the reminder name and choose a color for your reminder 
+- City has to be selected from a dropdown (Quito, Bogota or New York)
+- Notice the reminder can't be created until Name, City, Color are selected.
 
+## CORRECT ORDER
 
+- Reminders are added to the calendar in the correct order automatically
+
+## COLOR
+
+- Next to the reminder name in the modal, there should be an icon that let the user selects a color
+
+## EDIT REMINDER
+
+- Click on any reminder on the calendar and the modal should open with all the information of the reminder
+- Edit any information you want to edit and click on the EDIT REMINDER button
+
+## WEATHER SERVICE
+
+- After a city has been chosen, text info about the weather should show at the bottom of the modal
+
+## UNIT TEST
+
+- TEST 1: Verify the Reminder is been created succesfully
+- TEST 2: Verify the Reminder have less than 30 chars
