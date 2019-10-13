@@ -40,6 +40,8 @@ entered day and time. Also, include a city. - DONE
 
 ## UNIT TEST
 
+File: `calendar-app/my-calendar-app/src/components/reminder-modal/index.test.js`
+
 - TEST 1: Verify the Reminder is been created succesfully
 - TEST 2: Verify the Reminder have less than 30 chars
 
