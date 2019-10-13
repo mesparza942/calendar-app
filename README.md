@@ -13,6 +13,10 @@ weather forecast (ex. Rain) for the date of the calendar reminder based on the c
 - Unit test the functionality: ​ Ability to add a new "reminder" (max 30 chars) for a user
 entered day and time. Also, include a city. - DONE
 
+### Bonus 
+
+- None
+
 ## ADD REMINDER
 
 - Click on + button on your right OR click directly on any day on the calendar, a modal should open with a form of reminder info.
