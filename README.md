@@ -1,21 +1,17 @@
 # Calendar Demo Application
 This calendar allows you to schedule reminders for the following three cities - Quito, Bogota and New York
 
-### Mandatory Features (ALL DONE)
+### Features of the Demo
 
 - Ability to add a new "reminder" (max 30 chars) for a user entered day and time. Also,
-include a city. - DONE
-- Display reminders on the calendar view in the correct time order. - DONE
-- Allow the user to select color when creating a reminder and display it appropriately. - DONE
-- Ability to edit reminders – including changing text, city, day, time and color. - DONE
+include a city.
+- Display reminders on the calendar view in the correct time order.
+- Allow the user to select color when creating a reminder and display it appropriately.
+- Ability to edit reminders – including changing text, city, day, time and color.
 - Add a weather service call from a free API such as ​ Open Weather Map​ , and get the
-weather forecast (ex. Rain) for the date of the calendar reminder based on the city. - DONE
+weather forecast (i.e. Rain) for the date of the calendar reminder based on the city.
 - Unit test the functionality: ​ Ability to add a new "reminder" (max 30 chars) for a user
-entered day and time. Also, include a city. - DONE
-
-### Bonus 
-
-- None
+entered day and time. Also, include a city.
 
 ## ADD REMINDER
 
